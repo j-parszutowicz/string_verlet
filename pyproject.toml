@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "string_verlet"
+version = "0.1.0"
+authors = [
+  { name="Jan Parszutowicz" },
+]
+description = "Solver for the 1D wave equation using the Verlet method."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "numba"
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+]
