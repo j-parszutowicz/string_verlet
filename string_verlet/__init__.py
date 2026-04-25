@@ -38,12 +38,16 @@ def Verlet(*, n=101, dx=0.01, dt=0.005, t_max=5.0, f0):
     ----------
     n : int, optional
         Number of spatial grid points (default is 101).
+
     dx : float, optional
         Spatial step size (default is 0.01).
+
     dt : float, optional
         Time step size (default is 0.005).
+
     t_max : float, optional
         Total simulation time (default is 5.0).
+
     f0 : callable
         Function representing the initial condition of the string.
         It must accept a single argument (a 1D NumPy array X).
@@ -53,8 +57,10 @@ def Verlet(*, n=101, dx=0.01, dt=0.005, t_max=5.0, f0):
     -------
     X : ndarray
         1D NumPy array of length `n` containing the spatial coordinates.
+
     T : ndarray
         1D NumPy array containing the successive time steps of the simulation.
+        
     Z : ndarray
         2D NumPy array of shape `(len(T), n)` containing the string displacements.
         Each row `Z[i]` represents the state of the string at time `T[i]`.
