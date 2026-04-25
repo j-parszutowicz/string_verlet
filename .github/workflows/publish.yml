@@ -1,0 +1,25 @@
+name: Publish to TestPyPI
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - uses: actions/setup-python@v5
+    
+    - name: Building a package
+      run: pip install build; python -m build
+      
+    - name: Sending to TestPyPi
+      uses: pypa/gh-action-pypi-publish@release/v1.13
+      with:
+        repository_url: https://test.pypi.org/legacy/
+        attestations: false
