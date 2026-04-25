@@ -15,4 +15,7 @@ def test_verlet_shapes_and_initial_condition():
     oczekiwana_liczba_krokow = int(t_max / dt)
     assert Z.shape == (oczekiwana_liczba_krokow, n)
     
-    np.testing.assert_allclose(Z[0], 0.5)
+    np.testing.assert_allclose(Z[0, 1:-1], 0.5)
+    
+    assert Z[0, 0] == 0.0
+    assert Z[0, -1] == 0.0
