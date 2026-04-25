@@ -87,32 +87,38 @@ string_verlet    </h1>
 </span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">    ----------</span>
 </span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="sd">    n : int, optional</span>
 </span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="sd">        Number of spatial grid points (default is 101).</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="sd">    dx : float, optional</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="sd">        Spatial step size (default is 0.01).</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">    dt : float, optional</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">        Time step size (default is 0.005).</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="sd">    t_max : float, optional</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">        Total simulation time (default is 5.0).</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="sd">    f0 : callable</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="sd">        Function representing the initial condition of the string.</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="sd">        It must accept a single argument (a 1D NumPy array X).</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="sd">        Example: `lambda x: np.sin(np.pi * x)`</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="sd">    Returns</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="sd">    -------</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">    X : ndarray</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">        1D NumPy array of length `n` containing the spatial coordinates.</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">    T : ndarray</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">        1D NumPy array containing the successive time steps of the simulation.</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">    Z : ndarray</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">        2D NumPy array of shape `(len(T), n)` containing the string displacements.</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="sd">        Each row `Z[i]` represents the state of the string at time `T[i]`.</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>    <span class="n">U0_array</span> <span class="o">=</span> <span class="n">f0</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>    <span class="n">T</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">_verlet_core</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">U0_array</span><span class="p">)</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>    
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Z</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="sd">    dx : float, optional</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">        Spatial step size (default is 0.01).</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="sd">    dt : float, optional</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">        Time step size (default is 0.005).</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="sd">    t_max : float, optional</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a><span class="sd">        Total simulation time (default is 5.0).</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="sd">    f0 : callable</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="sd">        Function representing the initial condition of the string.</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="sd">        It must accept a single argument (a 1D NumPy array X).</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">        Example: `lambda x: np.sin(np.pi * x)`</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">    Returns</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">    -------</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">    X : ndarray</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">        1D NumPy array of length `n` containing the spatial coordinates.</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="sd">    T : ndarray</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="sd">        1D NumPy array containing the successive time steps of the simulation.</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="sd">        </span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="sd">    Z : ndarray</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a><span class="sd">        2D NumPy array of shape `(len(T), n)` containing the string displacements.</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a><span class="sd">        Each row `Z[i]` represents the state of the string at time `T[i]`.</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>    <span class="n">U0_array</span> <span class="o">=</span> <span class="n">f0</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>    <span class="n">T</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">_verlet_core</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">U0_array</span><span class="p">)</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>    
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Z</span>
 </span></pre></div>
 
 
@@ -136,32 +142,38 @@ string_verlet    </h1>
 </span><span id="Verlet-39"><a href="#Verlet-39"><span class="linenos">39</span></a><span class="sd">    ----------</span>
 </span><span id="Verlet-40"><a href="#Verlet-40"><span class="linenos">40</span></a><span class="sd">    n : int, optional</span>
 </span><span id="Verlet-41"><a href="#Verlet-41"><span class="linenos">41</span></a><span class="sd">        Number of spatial grid points (default is 101).</span>
-</span><span id="Verlet-42"><a href="#Verlet-42"><span class="linenos">42</span></a><span class="sd">    dx : float, optional</span>
-</span><span id="Verlet-43"><a href="#Verlet-43"><span class="linenos">43</span></a><span class="sd">        Spatial step size (default is 0.01).</span>
-</span><span id="Verlet-44"><a href="#Verlet-44"><span class="linenos">44</span></a><span class="sd">    dt : float, optional</span>
-</span><span id="Verlet-45"><a href="#Verlet-45"><span class="linenos">45</span></a><span class="sd">        Time step size (default is 0.005).</span>
-</span><span id="Verlet-46"><a href="#Verlet-46"><span class="linenos">46</span></a><span class="sd">    t_max : float, optional</span>
-</span><span id="Verlet-47"><a href="#Verlet-47"><span class="linenos">47</span></a><span class="sd">        Total simulation time (default is 5.0).</span>
-</span><span id="Verlet-48"><a href="#Verlet-48"><span class="linenos">48</span></a><span class="sd">    f0 : callable</span>
-</span><span id="Verlet-49"><a href="#Verlet-49"><span class="linenos">49</span></a><span class="sd">        Function representing the initial condition of the string.</span>
-</span><span id="Verlet-50"><a href="#Verlet-50"><span class="linenos">50</span></a><span class="sd">        It must accept a single argument (a 1D NumPy array X).</span>
-</span><span id="Verlet-51"><a href="#Verlet-51"><span class="linenos">51</span></a><span class="sd">        Example: `lambda x: np.sin(np.pi * x)`</span>
-</span><span id="Verlet-52"><a href="#Verlet-52"><span class="linenos">52</span></a>
-</span><span id="Verlet-53"><a href="#Verlet-53"><span class="linenos">53</span></a><span class="sd">    Returns</span>
-</span><span id="Verlet-54"><a href="#Verlet-54"><span class="linenos">54</span></a><span class="sd">    -------</span>
-</span><span id="Verlet-55"><a href="#Verlet-55"><span class="linenos">55</span></a><span class="sd">    X : ndarray</span>
-</span><span id="Verlet-56"><a href="#Verlet-56"><span class="linenos">56</span></a><span class="sd">        1D NumPy array of length `n` containing the spatial coordinates.</span>
-</span><span id="Verlet-57"><a href="#Verlet-57"><span class="linenos">57</span></a><span class="sd">    T : ndarray</span>
-</span><span id="Verlet-58"><a href="#Verlet-58"><span class="linenos">58</span></a><span class="sd">        1D NumPy array containing the successive time steps of the simulation.</span>
-</span><span id="Verlet-59"><a href="#Verlet-59"><span class="linenos">59</span></a><span class="sd">    Z : ndarray</span>
-</span><span id="Verlet-60"><a href="#Verlet-60"><span class="linenos">60</span></a><span class="sd">        2D NumPy array of shape `(len(T), n)` containing the string displacements.</span>
-</span><span id="Verlet-61"><a href="#Verlet-61"><span class="linenos">61</span></a><span class="sd">        Each row `Z[i]` represents the state of the string at time `T[i]`.</span>
-</span><span id="Verlet-62"><a href="#Verlet-62"><span class="linenos">62</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Verlet-63"><a href="#Verlet-63"><span class="linenos">63</span></a>    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-</span><span id="Verlet-64"><a href="#Verlet-64"><span class="linenos">64</span></a>    <span class="n">U0_array</span> <span class="o">=</span> <span class="n">f0</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-</span><span id="Verlet-65"><a href="#Verlet-65"><span class="linenos">65</span></a>    <span class="n">T</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">_verlet_core</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">U0_array</span><span class="p">)</span>
-</span><span id="Verlet-66"><a href="#Verlet-66"><span class="linenos">66</span></a>    
-</span><span id="Verlet-67"><a href="#Verlet-67"><span class="linenos">67</span></a>    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Z</span>
+</span><span id="Verlet-42"><a href="#Verlet-42"><span class="linenos">42</span></a>
+</span><span id="Verlet-43"><a href="#Verlet-43"><span class="linenos">43</span></a><span class="sd">    dx : float, optional</span>
+</span><span id="Verlet-44"><a href="#Verlet-44"><span class="linenos">44</span></a><span class="sd">        Spatial step size (default is 0.01).</span>
+</span><span id="Verlet-45"><a href="#Verlet-45"><span class="linenos">45</span></a>
+</span><span id="Verlet-46"><a href="#Verlet-46"><span class="linenos">46</span></a><span class="sd">    dt : float, optional</span>
+</span><span id="Verlet-47"><a href="#Verlet-47"><span class="linenos">47</span></a><span class="sd">        Time step size (default is 0.005).</span>
+</span><span id="Verlet-48"><a href="#Verlet-48"><span class="linenos">48</span></a>
+</span><span id="Verlet-49"><a href="#Verlet-49"><span class="linenos">49</span></a><span class="sd">    t_max : float, optional</span>
+</span><span id="Verlet-50"><a href="#Verlet-50"><span class="linenos">50</span></a><span class="sd">        Total simulation time (default is 5.0).</span>
+</span><span id="Verlet-51"><a href="#Verlet-51"><span class="linenos">51</span></a>
+</span><span id="Verlet-52"><a href="#Verlet-52"><span class="linenos">52</span></a><span class="sd">    f0 : callable</span>
+</span><span id="Verlet-53"><a href="#Verlet-53"><span class="linenos">53</span></a><span class="sd">        Function representing the initial condition of the string.</span>
+</span><span id="Verlet-54"><a href="#Verlet-54"><span class="linenos">54</span></a><span class="sd">        It must accept a single argument (a 1D NumPy array X).</span>
+</span><span id="Verlet-55"><a href="#Verlet-55"><span class="linenos">55</span></a><span class="sd">        Example: `lambda x: np.sin(np.pi * x)`</span>
+</span><span id="Verlet-56"><a href="#Verlet-56"><span class="linenos">56</span></a>
+</span><span id="Verlet-57"><a href="#Verlet-57"><span class="linenos">57</span></a><span class="sd">    Returns</span>
+</span><span id="Verlet-58"><a href="#Verlet-58"><span class="linenos">58</span></a><span class="sd">    -------</span>
+</span><span id="Verlet-59"><a href="#Verlet-59"><span class="linenos">59</span></a><span class="sd">    X : ndarray</span>
+</span><span id="Verlet-60"><a href="#Verlet-60"><span class="linenos">60</span></a><span class="sd">        1D NumPy array of length `n` containing the spatial coordinates.</span>
+</span><span id="Verlet-61"><a href="#Verlet-61"><span class="linenos">61</span></a>
+</span><span id="Verlet-62"><a href="#Verlet-62"><span class="linenos">62</span></a><span class="sd">    T : ndarray</span>
+</span><span id="Verlet-63"><a href="#Verlet-63"><span class="linenos">63</span></a><span class="sd">        1D NumPy array containing the successive time steps of the simulation.</span>
+</span><span id="Verlet-64"><a href="#Verlet-64"><span class="linenos">64</span></a><span class="sd">        </span>
+</span><span id="Verlet-65"><a href="#Verlet-65"><span class="linenos">65</span></a><span class="sd">    Z : ndarray</span>
+</span><span id="Verlet-66"><a href="#Verlet-66"><span class="linenos">66</span></a><span class="sd">        2D NumPy array of shape `(len(T), n)` containing the string displacements.</span>
+</span><span id="Verlet-67"><a href="#Verlet-67"><span class="linenos">67</span></a><span class="sd">        Each row `Z[i]` represents the state of the string at time `T[i]`.</span>
+</span><span id="Verlet-68"><a href="#Verlet-68"><span class="linenos">68</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="Verlet-69"><a href="#Verlet-69"><span class="linenos">69</span></a>    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</span><span id="Verlet-70"><a href="#Verlet-70"><span class="linenos">70</span></a>    <span class="n">U0_array</span> <span class="o">=</span> <span class="n">f0</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</span><span id="Verlet-71"><a href="#Verlet-71"><span class="linenos">71</span></a>    <span class="n">T</span><span class="p">,</span> <span class="n">Z</span> <span class="o">=</span> <span class="n">_verlet_core</span><span class="p">(</span><span class="n">dx</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">t_max</span><span class="p">,</span> <span class="n">U0_array</span><span class="p">)</span>
+</span><span id="Verlet-72"><a href="#Verlet-72"><span class="linenos">72</span></a>    
+</span><span id="Verlet-73"><a href="#Verlet-73"><span class="linenos">73</span></a>    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Z</span>
 </span></pre></div>
 
 
@@ -170,14 +182,18 @@ string_verlet    </h1>
 <h2 id="parameters">Parameters</h2>
 
 <p>n : int, optional
-    Number of spatial grid points (default is 101).
-dx : float, optional
-    Spatial step size (default is 0.01).
-dt : float, optional
-    Time step size (default is 0.005).
-t_max : float, optional
-    Total simulation time (default is 5.0).
-f0 : callable
+    Number of spatial grid points (default is 101).</p>
+
+<p>dx : float, optional
+    Spatial step size (default is 0.01).</p>
+
+<p>dt : float, optional
+    Time step size (default is 0.005).</p>
+
+<p>t_max : float, optional
+    Total simulation time (default is 5.0).</p>
+
+<p>f0 : callable
     Function representing the initial condition of the string.
     It must accept a single argument (a 1D NumPy array X).
     Example: <code>lambda x: np.sin(np.pi * x)</code></p>
@@ -185,10 +201,12 @@ f0 : callable
 <h2 id="returns">Returns</h2>
 
 <p>X : ndarray
-    1D NumPy array of length <code>n</code> containing the spatial coordinates.
-T : ndarray
-    1D NumPy array containing the successive time steps of the simulation.
-Z : ndarray
+    1D NumPy array of length <code>n</code> containing the spatial coordinates.</p>
+
+<p>T : ndarray
+    1D NumPy array containing the successive time steps of the simulation.</p>
+
+<p>Z : ndarray
     2D NumPy array of shape <code>(len(T), n)</code> containing the string displacements.
     Each row <code>Z[i]</code> represents the state of the string at time <code>T[i]</code>.</p>
 </div>
